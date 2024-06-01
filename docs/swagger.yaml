@@ -1,0 +1,272 @@
+definitions:
+  models.ClockInRequest:
+    properties:
+      employee_id:
+        type: string
+    required:
+    - employee_id
+    type: object
+  models.CreateDepartmentRequest:
+    properties:
+      department_name:
+        type: string
+      max_clock_in_time:
+        type: string
+      max_clock_out_time:
+        type: string
+    required:
+    - department_name
+    - max_clock_in_time
+    - max_clock_out_time
+    type: object
+  models.CreateEmployeeRequest:
+    properties:
+      address:
+        type: string
+      department_id:
+        type: integer
+      employee_id:
+        type: string
+      name:
+        type: string
+    required:
+    - address
+    - department_id
+    - employee_id
+    - name
+    type: object
+  models.UpdateDepartmentRequest:
+    properties:
+      department_name:
+        type: string
+      max_clock_in_time:
+        type: string
+      max_clock_out_time:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /attendance-histories:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves attendance histories based on department and date filter
+      parameters:
+      - description: Department name
+        in: query
+        name: department
+        type: string
+      - description: Date filter (YYYY-MM-DD)
+        in: query
+        name: date
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get attendance histories
+      tags:
+      - Attendance
+  /clockin:
+    post:
+      consumes:
+      - application/json
+      description: Clocks in an employee
+      parameters:
+      - description: Clock-in request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.ClockInRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: Clock in
+      tags:
+      - Attendance
+  /clockout:
+    put:
+      consumes:
+      - application/json
+      description: Clocks out an employee
+      parameters:
+      - description: Clock-out request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.ClockInRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: Clock out
+      tags:
+      - Attendance
+  /departments:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all departments
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all departments
+      tags:
+      - Departments
+    post:
+      consumes:
+      - application/json
+      description: Creates a new department with the provided details
+      parameters:
+      - description: Department details
+        in: body
+        name: department
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateDepartmentRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create a new department
+      tags:
+      - Departments
+  /departments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a department with the provided ID
+      parameters:
+      - description: Department ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete a department by ID
+      tags:
+      - Departments
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a department by the provided ID
+      parameters:
+      - description: Department ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get a department by ID
+      tags:
+      - Departments
+    put:
+      consumes:
+      - application/json
+      description: Updates a department with the provided details
+      parameters:
+      - description: Department ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Department details
+        in: body
+        name: department
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateDepartmentRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update a department by ID
+      tags:
+      - Departments
+  /employees:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all employees
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all employees
+      tags:
+      - Employees
+    post:
+      consumes:
+      - application/json
+      description: Creates a new employee with the provided details
+      parameters:
+      - description: Employee details
+        in: body
+        name: employee
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateEmployeeRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create a new employee
+      tags:
+      - Employees
+  /employees/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an employee with the provided ID
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete an employee by ID
+      tags:
+      - Employees
+    get:
+      consumes:
+      - application/json
+      description: Retrieves an employee by the provided ID
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get an employee by ID
+      tags:
+      - Employees
+    put:
+      consumes:
+      - application/json
+      description: Updates an employee with the provided details
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Employee details
+        in: body
+        name: employee
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateEmployeeRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update an employee by ID
+      tags:
+      - Employees
+swagger: "2.0"
