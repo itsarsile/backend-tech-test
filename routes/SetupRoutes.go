@@ -29,5 +29,9 @@ func SetupRoutes(r *gin.Engine) {
 	api.POST("/clockin", handlers.ClockIn)
 	api.PUT("/clockout", handlers.ClockOut)
 
-	api.GET("/attendance-histories", handlers.GetAttendanceHistories)
+	attendances := api.Group("/attendances")
+	{
+		attendances.GET("/histories", handlers.GetAttendanceHistories)
+		attendances.GET("/log", handlers.GetAttendanceLog)
+	}
 }

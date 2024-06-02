@@ -20,3 +20,12 @@ type CreateEmployeeRequest struct {
 	Address      string `json:"address" binding:"required"`
 	DepartmentID uint   `json:"department_id" binding:"required"`
 }
+
+type EmployeeWithDepartment struct {
+	ID             uint   `json:"id"`
+	EmployeeID     string `json:"employee_id"`
+	Name           string `json:"name"`
+	Address        string `json:"address"`
+	DepartmentID   uint   `json:"department_id"`
+	DepartmentName string `json:"department_name"`
+}

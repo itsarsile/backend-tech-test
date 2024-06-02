@@ -13,8 +13,8 @@ services:
       - DB_HOST=database
       - DB_PORT=3306
       - DB_USER=root
-      - DB_PASSWORD=password
-      - DB_NAME=mydatabase
+      - DB_PASSWORD=root
+      - DB_NAME=test
     depends_on:
       - database
 

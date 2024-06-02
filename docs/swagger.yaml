@@ -47,7 +47,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /attendance-histories:
+  /attendances/histories:
     get:
       consumes:
       - application/json
@@ -65,6 +65,17 @@ paths:
       - application/json
       responses: {}
       summary: Get attendance histories
+      tags:
+      - Attendance
+  /attendances/log:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all attendance logs
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all attendance logs
       tags:
       - Attendance
   /clockin:

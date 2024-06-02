@@ -54,9 +54,18 @@ func CreateEmployee(c *gin.Context) {
 // @Router /employees [get]
 func GetAllEmployee(c *gin.Context) {
 
-	employee := []models.Employee{}
+	employee := []models.EmployeeWithDepartment{}
 
-	database.DB.Find(&employee)
+	query := database.DB.Table("employees").
+		Select("employees.id, employees.employee_id, employees.name, employees.address,employees.department_id, departments.department_name").
+		Joins("JOIN departments ON employees.department_id = departments.id").
+		Where("employees.deleted_at IS NULL").
+		Scan(&employee)
+
+	if query.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": query.Error.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, employee)
 
@@ -73,9 +82,19 @@ func GetAllEmployee(c *gin.Context) {
 func GetEmployeeById(c *gin.Context) {
 
 	id := c.Param("id")
-	employee := models.Employee{}
 
-	database.DB.Find(&employee, id)
+	var employee models.EmployeeWithDepartment
+
+	query := database.DB.Table("employees").
+		Select("employees.id, employees.employee_id, employees.name, employees.address, employees.department_id, departments.department_name").
+		Joins("JOIN departments ON employees.department_id = departments.id").
+		Where("employees.id = ?", id).
+		Scan(&employee)
+
+	if query.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": query.Error.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, employee)
 

@@ -6,6 +6,7 @@ import (
 	"backend/routes"
 
 	docs "backend/docs"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -19,9 +20,17 @@ func main() {
 		&models.Employee{},
 		&models.Attendance{},
 		&models.AttendanceHistory{},
+		&models.User{},
 	)
 
 	r := gin.Default()
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
+		AllowCredentials: true,
+	}))
 
 	docs.SwaggerInfo.BasePath = "/api/v1"
 

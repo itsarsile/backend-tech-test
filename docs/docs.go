@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/attendance-histories": {
+        "/attendances/histories": {
             "get": {
                 "description": "Retrieves attendance histories based on department and date filter",
                 "consumes": [
@@ -42,6 +42,22 @@ const docTemplate = `{
                         "in": "query"
                     }
                 ],
+                "responses": {}
+            }
+        },
+        "/attendances/log": {
+            "get": {
+                "description": "Retrieves all attendance logs",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Attendance"
+                ],
+                "summary": "Get all attendance logs",
                 "responses": {}
             }
         },

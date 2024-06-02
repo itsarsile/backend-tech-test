@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"backend/models"
 	"backend/pkgs/database"
 	"fmt"
 	"net/http"
@@ -15,8 +16,6 @@ type AttDiffInfo struct {
 	ClockOutDiff   string
 }
 
-// @BasePath /api/v1
-
 // @Summary Get attendance histories
 // @Description Retrieves attendance histories based on department and date filter
 // @Tags Attendance
@@ -24,7 +23,7 @@ type AttDiffInfo struct {
 // @Produce json
 // @Param department query string false "Department name"
 // @Param date query string false "Date filter (YYYY-MM-DD)"
-// @Router /attendance-histories [get]
+// @Router /attendances/histories [get]
 func GetAttendanceHistories(c *gin.Context) {
 	department := c.Query("department")
 	dateFilter := c.Query("date")
@@ -56,5 +55,22 @@ func GetAttendanceHistories(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"attendance_diffs": attendanceDiffs})
+	c.JSON(http.StatusOK, attendanceDiffs)
+}
+
+// GetAttendanceLog retrieves all attendance logs
+// @Summary Get all attendance logs
+// @Description Retrieves all attendance logs
+// @Tags Attendance
+// @Accept json
+// @Produce json
+// @Router /attendances/log [get]
+func GetAttendanceLog(c *gin.Context) {
+
+	attlog := []models.AttendanceHistory{}
+
+	database.DB.Find(&attlog)
+
+	c.JSON(http.StatusOK, attlog)
+
 }
