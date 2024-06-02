@@ -23,18 +23,6 @@ This document provides an overview of the endpoints available in the backend API
 4. **Access the API:**
     The API will be running locally at `http://localhost:8000`.
 
-## Running with Docker
-
-1. **Build and Start Containers:**
-
-   Once you have Docker installed, you can run the project with Docker using the following command:
-
-   ```bash
-   docker-compose up --build
-   ```
-
-1. **Access the API:**
-    The API will be running locally at `http://localhost:8000`.
 
 ## API Documentation
 
